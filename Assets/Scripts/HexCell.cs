@@ -2,15 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 六边形单元
+/// </summary>
 public class HexCell : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public HexCoordinates coordinates;
+    public Color color;
 }
