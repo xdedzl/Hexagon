@@ -6,11 +6,45 @@ using UnityEngine;
 /// 六边形单元
 /// </summary>
 public class HexCell : MonoBehaviour {
-    public HexCoordinates coordinates;
-    public Color color;
 
+    /// <summary>
+    /// 六边形坐标系
+    /// </summary>
+    public HexCoordinates coordinates;
+    /// <summary>
+    /// 单元颜色
+    /// </summary>
+    public Color color;
+    /// <summary>
+    /// 邻居
+    /// </summary>
     [SerializeField]
     private HexCell[] neighbors;
+    public RectTransform uiRect;
+
+    /// <summary>
+    /// 高度等级
+    /// </summary>
+    private int elevation;
+    public int Elevation
+    {
+        get
+        {
+            return elevation;
+        }
+        set
+        {
+            elevation = value;
+            Vector3 position = transform.localPosition;
+            position.y = value * HexMetrics.elevationStep;
+            transform.localPosition = position;
+
+            // 改变坐标显示高度
+            Vector3 uiPosition = uiRect.localPosition;
+            uiPosition.z = elevation * -HexMetrics.elevationStep;
+            uiRect.localPosition = uiPosition;
+        }
+    }
 
     /// <summary>
     /// 获取对应方向的邻居

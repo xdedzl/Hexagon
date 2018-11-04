@@ -10,6 +10,7 @@ public class HexMapEditor : MonoBehaviour {
     public HexGrid hexGrid;
 
     private Color activeColor;
+    private int activeElevations; // 高度
 
     void Awake()
     {
@@ -30,12 +31,35 @@ public class HexMapEditor : MonoBehaviour {
         RaycastHit hit;
         if (Physics.Raycast(inputRay, out hit))
         {
-            hexGrid.ColorCell(hit.point, activeColor);
+            EditCell(hexGrid.GetCell(hit.point));
         }
     }
 
+    /// <summary>
+    /// 选择颜色
+    /// </summary>
+    /// <param name="index"></param>
     public void SelectColor(int index)
     {
         activeColor = colors[index];
+    }
+
+    /// <summary>
+    /// 编辑网格
+    /// </summary>
+    /// <param name="cell"></param>
+    private void EditCell(HexCell cell)
+    {
+        cell.color = activeColor;
+        cell.Elevation = activeElevations;
+        hexGrid.Refresh();
+    }
+
+    /// <summary>
+    /// 设置高度
+    /// </summary>
+    public void SetElevation(float elevation)
+    {
+        activeElevations = (int)elevation;
     }
 }
