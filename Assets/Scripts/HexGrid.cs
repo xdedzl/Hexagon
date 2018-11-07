@@ -27,8 +27,15 @@ public class HexGrid : MonoBehaviour
 
     public Color defaultColor = Color.white;
 
+    /// <summary>
+    /// 噪声
+    /// </summary>
+    public Texture2D noiseSource;
+
     private void Awake()
     {
+        HexMetrics.noiseSource = noiseSource;   // 赋值噪音
+
         gridCanvas = GetComponentInChildren<Canvas>();
         hexMesh = GetComponentInChildren<HexMesh>();
 
@@ -41,6 +48,14 @@ public class HexGrid : MonoBehaviour
                 CreatCell(x, z, i++);
             }
         }
+    }
+
+    /// <summary>
+    /// 重新编译时会被调用
+    /// </summary>
+    void OnEnable()
+    {
+        HexMetrics.noiseSource = noiseSource;
     }
 
     private void Start()
@@ -130,6 +145,8 @@ public class HexGrid : MonoBehaviour
         label.rectTransform.anchoredPosition = new Vector2(position.x, position.z);
         label.text = cell.coordinates.ToStringOnSeparateLines();
         cell.uiRect = label.rectTransform;
+
+        cell.Elevation = 0;
     }
 
     /// <summary>

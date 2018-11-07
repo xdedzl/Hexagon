@@ -11,3 +11,10 @@ public enum HexDirection
     W,   // 西
     NW,  // 西北
 }
+
+public enum HexEdgeType
+{
+    Flat,   // 平面
+    Slope,  // 斜坡
+    Cliff   // 陡坡
+}

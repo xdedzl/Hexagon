@@ -23,6 +23,7 @@ public static class HexMetrics {
     /// 混合区域占比
     /// </summary>
     public const float blendFactor = 1 - solidFactor;
+
     /// <summary>
     /// 每一阶梯的高度
     /// </summary>
@@ -43,6 +44,23 @@ public static class HexMetrics {
     /// 每个阶梯在一个斜坡所占的百分比（用于调整竖直y）
     /// </summary>
     public const float verticalTerraceStepSize = 1f / (terracesPerSlope + 1);
+
+    /// <summary>
+    /// 噪声
+    /// </summary>
+    public static Texture2D noiseSource;
+    /// <summary>
+    /// 干扰幅度
+    /// </summary>
+    public static float cellPerturbStrength = 5f;
+    /// <summary>
+    /// 噪音取样的大小  使纹理可以覆盖更大的区域
+    /// </summary>
+    public static float noiseScale = 0.003f;
+    /// <summary>
+    /// 垂直干扰作用在每个单元上而不是每个顶点
+    /// </summary>
+    public static float elevationPerturbStrength = 1.5f;
 
     /// <summary>
     /// 六边形六个顶点相对中心点的位置
@@ -105,6 +123,7 @@ public static class HexMetrics {
         return (corners[(int)(direction)] + corners[(int)direction + 1])* blendFactor;
     }
 
+
     /// <summary>
     /// 用于的到阶梯位置的特殊插值方式
     /// Y坐标必须只在奇数阶梯中改变，不能在偶数阶梯中改变，否则我们不会得到平直的阶地。
@@ -117,7 +136,7 @@ public static class HexMetrics {
     {
         float h = step * HexMetrics.horizontalTerraceStepSize;
         a.x += (b.x - a.x) * h;
-        a.z += (b.x - a.z) * h;
+        a.z += (b.z - a.z) * h;
         float v = ((step + 1) / 2) * HexMetrics.verticalTerraceStepSize;
         a.y += (b.y - a.y) * v;
         return a;
@@ -134,5 +153,34 @@ public static class HexMetrics {
     {
         float h = step * HexMetrics.horizontalTerraceStepSize;
         return Color.Lerp(a, b, h);
+    }
+
+    /// <summary>
+    /// 获取相邻单位的连接类型
+    /// </summary>
+    /// <param name="elevation_1"></param>
+    /// <param name="elevation_2"></param>
+    /// <returns></returns>
+    public static HexEdgeType GetEdgeType(int elevation_1, int elevation_2)
+    {
+        if(elevation_1 == elevation_2)
+        {
+            return HexEdgeType.Flat;
+        }
+        int delta = elevation_2 - elevation_1;
+        if (delta == 1 || delta == -1)
+        {
+            return HexEdgeType.Slope;
+        }
+        return HexEdgeType.Cliff;
+    }
+
+
+    /// <summary>
+    /// 返回一个包含四个噪音取样的4D向量·
+    /// </summary>
+    public static Vector4 SampleNoise(Vector3 position)
+    {
+        return noiseSource.GetPixelBilinear(position.x * noiseScale, position.z * noiseScale);
     }
 }

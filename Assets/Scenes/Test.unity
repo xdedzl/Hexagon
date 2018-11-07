@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -963,6 +963,7 @@ GameObject:
   m_Component:
   - component: {fileID: 761779947}
   - component: {fileID: 761779948}
+  - component: {fileID: 761779949}
   m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
@@ -986,9 +987,9 @@ RectTransform:
   m_Father: {fileID: 1691130217}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -380, y: 102.9}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 10, y: -256}
   m_SizeDelta: {x: 20, y: 160}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &761779948
@@ -1050,6 +1051,17 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &761779949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 761779946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 983896bd3d992db47971b0f4cabe7315, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &765996015
 GameObject:
   m_ObjectHideFlags: 0
@@ -1457,10 +1469,10 @@ RectTransform:
   m_Father: {fileID: 1691130217}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -337.4, y: 260.7}
-  m_SizeDelta: {x: -674.9, y: -521.4}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 60.25, y: -84.149994}
+  m_SizeDelta: {x: 120.5, y: 168.29999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &939946915
 MonoBehaviour:
@@ -2156,6 +2168,7 @@ MonoBehaviour:
   cellLabelPrefab: {fileID: 114381499926104062, guid: bae2d810bd4179a4fbf6cbca9fef24d7,
     type: 2}
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
+  noiseSource: {fileID: 2800000, guid: dbe93504a56f536409aab0aa80f0e0d0, type: 3}
 --- !u!1 &1773014969
 GameObject:
   m_ObjectHideFlags: 0
