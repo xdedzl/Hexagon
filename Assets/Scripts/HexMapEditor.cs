@@ -50,9 +50,9 @@ public class HexMapEditor : MonoBehaviour {
     /// <param name="cell"></param>
     private void EditCell(HexCell cell)
     {
-        cell.color = activeColor;
+        cell.Color = activeColor;
         cell.Elevation = activeElevations;
-        hexGrid.Refresh();
+        //hexGrid.Refresh();
     }
 
     /// <summary>

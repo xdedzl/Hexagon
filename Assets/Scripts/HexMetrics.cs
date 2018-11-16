@@ -18,7 +18,7 @@ public static class HexMetrics {
     /// <summary>
     /// 纯色区域占比
     /// </summary>
-    public const float solidFactor = 0.75f;
+    public const float solidFactor = 0.8f;
     /// <summary>
     /// 混合区域占比
     /// </summary>
@@ -27,11 +27,11 @@ public static class HexMetrics {
     /// <summary>
     /// 每一阶梯的高度
     /// </summary>
-    public const float elevationStep = 5f;
+    public const float elevationStep = 3f;
     /// <summary>
     /// 每个斜坡的阶梯数量
     /// </summary>
-    public const int terracesPerSlope = 2;
+    public const int terracesPerSlope = 4;
     /// <summary>
     /// 如果有两个阶梯，就会有四个中间点外加一个最高点
     /// </summary>
@@ -61,6 +61,12 @@ public static class HexMetrics {
     /// 垂直干扰作用在每个单元上而不是每个顶点
     /// </summary>
     public static float elevationPerturbStrength = 1.5f;
+
+    /// <summary>
+    /// 地图块大小，5x5
+    /// </summary>
+    public const int chunkSizeX = 5;
+    public const int chunkSizeZ = 5;
 
     /// <summary>
     /// 六边形六个顶点相对中心点的位置
