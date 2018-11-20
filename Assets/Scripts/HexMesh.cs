@@ -8,12 +8,12 @@ using UnityEngine;
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class HexMesh : MonoBehaviour
 {
-
-    private Mesh hexMesh;
     private static List<Vector3> vertices = new List<Vector3>();
     private static List<int> triangles = new List<int>();
     private static List<Color> colors = new List<Color>();
-    private static MeshCollider meshCollider;
+
+    private Mesh hexMesh;
+    private MeshCollider meshCollider;
 
     private void Awake()
     {

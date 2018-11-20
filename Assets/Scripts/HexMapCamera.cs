@@ -77,7 +77,7 @@ public class HexMapCamera : MonoBehaviour {
         }
 
         float rotationDalta = Input.GetAxis("Rotation");
-        Debug.Log(rotationDalta);
+
         if(rotationDalta != 0)
         {
             AdjustRotation(rotationDalta);

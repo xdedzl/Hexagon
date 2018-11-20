@@ -11,11 +11,11 @@ public class HexGrid : MonoBehaviour
     /// <summary>
     /// 横向六边形数量
     /// </summary>
-    private int cellCountX = 6;
+    private int cellCountX;
     /// <summary>
     /// 纵向六边形数量
     /// </summary>
-    private int cellCountZ = 6;
+    private int cellCountZ;
     /// <summary>
     /// 地图块数量
     /// </summary>
@@ -211,7 +211,7 @@ public class HexGrid : MonoBehaviour
     }
 
     /// <summary>
-    /// 改变某一位置对应的六边形的颜色
+    /// 通过世界坐标系找到一个单元
     /// </summary>
     public HexCell GetCell(Vector3 position)
     {
@@ -223,10 +223,33 @@ public class HexGrid : MonoBehaviour
     }
 
     /// <summary>
-    /// 刷新网格
+    /// 通过六边形坐标系找到一个单元
     /// </summary>
-    //public void Refresh()
-    //{
-    //    hexMesh.Triangulate(cells);
-    //}
+    /// <param name="coordinates"></param>
+    /// <returns></returns>
+    public HexCell GetCell(HexCoordinates coordinates)
+    {
+        int z = coordinates.Z;
+        if (z < 0 || z >= cellCountZ)
+        {
+            return null;
+        }
+        int x = coordinates.X + z / 2;
+        if (x < 0 || x >= cellCountX)
+        {
+            return null;
+        }
+        return cells[x + z * cellCountX];
+    }
+
+    /// <summary>
+    /// 控制整个地图的UI显示
+    /// </summary>
+    public void ShowUI(bool visible)
+    {
+        for (int i = 0; i < chunks.Length; i++)
+        {
+            chunks[i].ShowUI(visible);
+        }
+    }
 }

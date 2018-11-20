@@ -7,10 +7,10 @@ using UnityEngine;
 /// </summary>
 public class HexGridChunk : MonoBehaviour {
 
-    HexCell[] cells;
+    private HexCell[] cells;
 
-    HexMesh hexMesh;
-    Canvas gridCanvas;
+    private HexMesh hexMesh;
+    private Canvas gridCanvas;
 
     private void Awake()
     {
@@ -18,6 +18,7 @@ public class HexGridChunk : MonoBehaviour {
         hexMesh = GetComponentInChildren<HexMesh>();
 
         cells = new HexCell[HexMetrics.chunkSizeX * HexMetrics.chunkSizeZ];
+        ShowUI(false);
     }
 
     private void Start()
@@ -50,5 +51,14 @@ public class HexGridChunk : MonoBehaviour {
     public void Refresh()
     {
         this.enabled = true;
+    }
+    
+    /// <summary>
+    /// 控制地图块自身UI的显示
+    /// </summary>
+    /// <param name="visible"></param>
+    public void ShowUI(bool visible)
+    {
+        gridCanvas.gameObject.SetActive(visible);
     }
 }
