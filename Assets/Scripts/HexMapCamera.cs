@@ -48,6 +48,15 @@ public class HexMapCamera : MonoBehaviour {
     public float moveSpeedMaxZoom;
 
     /// <summary>
+    /// 旋转速度
+    /// </summary>
+    public float rotationSpeed;
+    /// <summary>
+    /// 相机当前欧拉角
+    /// </summary>
+    private float rotationAngle;
+
+    /// <summary>
     /// 地图
     /// </summary>
     public HexGrid grid;
@@ -65,6 +74,13 @@ public class HexMapCamera : MonoBehaviour {
         if(zoomDelta != 0f)
         {
             AdjustZoom(zoomDelta);
+        }
+
+        float rotationDalta = Input.GetAxis("Rotation");
+        Debug.Log(rotationDalta);
+        if(rotationDalta != 0)
+        {
+            AdjustRotation(rotationDalta);
         }
 
         // 控制位置
@@ -96,9 +112,9 @@ public class HexMapCamera : MonoBehaviour {
     /// </summary>
     /// <param name="xDelta"></param>
     /// <param name="zDelta"></param>
-    void AdjustPosition(float xDelta, float zDelta)
+    private void AdjustPosition(float xDelta, float zDelta)
     {
-        Vector3 dirction = new Vector3(xDelta, 0f, zDelta).normalized;
+        Vector3 dirction = transform.localRotation * new Vector3(xDelta, 0f, zDelta).normalized;
         float damping = Mathf.Max(Mathf.Abs(xDelta), Mathf.Abs(zDelta));  // 使用两个方向的大值控制速度
         float distance = Mathf.Lerp(moveSpeedMinZoom, moveSpeedMaxZoom, zoom) * damping * Time.deltaTime;  // 距离越远，速度越快
 
@@ -107,6 +123,20 @@ public class HexMapCamera : MonoBehaviour {
         transform.localPosition = position;
 
         transform.localPosition = ClampPosition(position);
+    }
+
+    /// <summary>
+    /// 控制旋转
+    /// </summary>
+    /// <param name="delta"></param>
+    private void AdjustRotation(float delta)
+    {
+        rotationAngle += delta * rotationSpeed * Time.deltaTime;
+        if (rotationAngle < 0f)
+            rotationAngle += 360f;
+        else if (rotationAngle >= 360f)
+            rotationAngle -= 360f;
+        transform.localRotation = Quaternion.Euler(0, rotationAngle, 0);
     }
 
     /// <summary>
