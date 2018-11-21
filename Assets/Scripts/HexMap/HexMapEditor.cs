@@ -31,6 +31,20 @@ public class HexMapEditor : MonoBehaviour {
     /// </summary>
     private bool applyElevation = true;
 
+    private OptionToggle riverMode;
+    /// <summary>
+    /// 是否拖拽
+    /// </summary>
+    private bool isDrag;
+    /// <summary>
+    /// 拖拽方向
+    /// </summary>
+    HexDirection dragDirection;
+    /// <summary>
+    /// 上一个拖拽单元
+    /// </summary>
+    HexCell previousCell;
+
     void Awake()
     {
         SelectColor(0);
@@ -44,6 +58,10 @@ public class HexMapEditor : MonoBehaviour {
         {
             HandleInput();
         }
+        else
+        {
+            previousCell = null;
+        }
     }
 
     /// <summary>
@@ -55,8 +73,40 @@ public class HexMapEditor : MonoBehaviour {
         RaycastHit hit;
         if (Physics.Raycast(inputRay, out hit))
         {
-            EditCells(hexGrid.GetCell(hit.point));
+            HexCell currentCell = hexGrid.GetCell(hit.point);
+            if (previousCell && previousCell != currentCell)
+            {
+                ValidateDrag(currentCell);
+            }
+            else
+            {
+                isDrag = false;
+            }
+            EditCells(currentCell);
+            previousCell = currentCell;
+            isDrag = true;
         }
+        else
+        {
+            previousCell = null;
+        }
+    }
+
+    /// <summary>
+    /// 判断某一个单元是否为上一次存储的单元的邻居
+    /// </summary>
+    /// <param name="currentCell"></param>
+    private void ValidateDrag(HexCell currentCell)
+    {
+        for (dragDirection = HexDirection.NE; dragDirection <= HexDirection.NW; dragDirection++)
+        {
+            if (previousCell.GetNeighbor(dragDirection) == currentCell)
+            {
+                isDrag = true;
+                return;
+            }
+        }
+        isDrag = false;
     }
 
     /// <summary>
@@ -135,5 +185,22 @@ public class HexMapEditor : MonoBehaviour {
     public void SetBrushSize(float size)
     {
         brushSize = (int)size;
+    }
+
+    /// <summary>
+    /// 设置河流模式
+    /// </summary>
+    /// <param name="mode"></param>
+    public void SetRiverMode(int mode)
+    {
+        riverMode = (OptionToggle)mode;
+    }
+
+    /// <summary>
+    /// 河流编辑枚举
+    /// </summary>
+    enum OptionToggle
+    {
+        Ignore, Yes, No
     }
 }
