@@ -52,7 +52,7 @@ public static class HexMetrics {
     /// <summary>
     /// 干扰幅度
     /// </summary>
-    public static float cellPerturbStrength = 5f;
+    public static float cellPerturbStrength = 1f;
     /// <summary>
     /// 噪音取样的大小  使纹理可以覆盖更大的区域
     /// </summary>

@@ -95,7 +95,7 @@ public class HexMesh : MonoBehaviour
 
         Vector3 bridge = HexMetrics.GetBridge(direction);
         bridge.y = neighbor.Position.y - cell.Position.y;
-        EdgeVertices e2 = new EdgeVertices(e1.v1 + bridge, e1.v4 + bridge);
+        EdgeVertices e2 = new EdgeVertices(e1.v1 + bridge, e1.v5 + bridge);
 
         // 边缘阶梯化 只有连接类型为斜坡时才加入阶梯
         if (cell.GetEdgeType(direction) == HexEdgeType.Slope)
@@ -111,7 +111,7 @@ public class HexMesh : MonoBehaviour
         HexCell nextNeighbor = cell.GetNeighbor(direction.Next());
         if (direction <= HexDirection.E && nextNeighbor != null)
         {
-            Vector3 v5 = e1.v4 + HexMetrics.GetBridge(direction.Next());
+            Vector3 v5 = e1.v5 + HexMetrics.GetBridge(direction.Next());
             // 改变连接三角形另一边的高度
             v5.y = nextNeighbor.Position.y;
 
@@ -120,20 +120,20 @@ public class HexMesh : MonoBehaviour
             {
                 if (cell.Elevation <= nextNeighbor.Elevation)
                 {
-                    TriangulateCorner(e1.v4, cell, e2.v4, neighbor, v5, nextNeighbor);
+                    TriangulateCorner(e1.v5, cell, e2.v5, neighbor, v5, nextNeighbor);
                 }
                 else
                 {
-                    TriangulateCorner(v5, nextNeighbor, e1.v4, cell, e2.v4, neighbor);
+                    TriangulateCorner(v5, nextNeighbor, e1.v5, cell, e2.v5, neighbor);
                 }
             }
             else if (neighbor.Elevation < nextNeighbor.Elevation)
             {
-                TriangulateCorner(e2.v4, neighbor, v5, nextNeighbor, e1.v4, cell);
+                TriangulateCorner(e2.v5, neighbor, v5, nextNeighbor, e1.v5, cell);
             }
             else
             {
-                TriangulateCorner(v5, nextNeighbor, e1.v4, cell, e2.v4, neighbor);
+                TriangulateCorner(v5, nextNeighbor, e1.v5, cell, e2.v5, neighbor);
             }
         }
     }
@@ -438,9 +438,9 @@ public class HexMesh : MonoBehaviour
     {
         AddTriangle(center, edge.v1, edge.v2);
         AddTriangleColor(color);
-        AddTriangle(center, edge.v2, edge.v3);
+        AddTriangle(center, edge.v2, edge.v4);
         AddTriangleColor(color);
-        AddTriangle(center, edge.v3, edge.v4);
+        AddTriangle(center, edge.v4, edge.v5);
         AddTriangleColor(color);
     }
 
@@ -455,9 +455,9 @@ public class HexMesh : MonoBehaviour
     {
         AddQuad(e1.v1, e1.v2, e2.v1, e2.v2);
         AddQuadColor(c1, c2);
-        AddQuad(e1.v2, e1.v3, e2.v2, e2.v3);
+        AddQuad(e1.v2, e1.v4, e2.v2, e2.v4);
         AddQuadColor(c1, c2);
-        AddQuad(e1.v3, e1.v4, e2.v3, e2.v4);
+        AddQuad(e1.v4, e1.v5, e2.v4, e2.v5);
         AddQuadColor(c1, c2);
     }
 

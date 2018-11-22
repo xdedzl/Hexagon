@@ -31,6 +31,9 @@ public class HexMapEditor : MonoBehaviour {
     /// </summary>
     private bool applyElevation = true;
 
+    /// <summary>
+    /// 
+    /// </summary>
     private OptionToggle riverMode;
     /// <summary>
     /// 是否拖拽
@@ -45,11 +48,24 @@ public class HexMapEditor : MonoBehaviour {
     /// </summary>
     HexCell previousCell;
 
+
     void Awake()
     {
         SelectColor(0);
 
         transform.FindRecursive("BrushSizeSlider").GetComponent<Slider>().onValueChanged.AddListener(SetBrushSize);
+        transform.Find("RiverPanel").GetChild(0).GetComponent<Toggle>().onValueChanged.AddListener((a) =>
+        {
+            if (a) SetRiverMode(0);
+        });
+        transform.Find("RiverPanel").GetChild(1).GetComponent<Toggle>().onValueChanged.AddListener((a) =>
+        {
+            if (a) SetRiverMode(1);
+        });
+        transform.Find("RiverPanel").GetChild(2).GetComponent<Toggle>().onValueChanged.AddListener((a) =>
+        {
+            if (a) SetRiverMode(2);
+        });
     }
 
     void Update()
@@ -146,6 +162,17 @@ public class HexMapEditor : MonoBehaviour {
                 cell.Color = activeColor;
             if (applyElevation)
                 cell.Elevation = activeElevations;
+
+            if (riverMode == OptionToggle.No)
+            {
+                cell.RemoveRiver();
+            }
+            else if (isDrag && riverMode == OptionToggle.Yes)
+            {
+                HexCell otherCell = cell.GetNeighbor(dragDirection.Opposite());
+                if (otherCell)
+                    previousCell.SetOutgoingRiver(dragDirection);
+            }
         }
     }
 
