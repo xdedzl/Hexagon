@@ -438,7 +438,9 @@ public class HexMesh : MonoBehaviour
     {
         AddTriangle(center, edge.v1, edge.v2);
         AddTriangleColor(color);
-        AddTriangle(center, edge.v2, edge.v4);
+        AddTriangle(center, edge.v2, edge.v3);
+        AddTriangleColor(color);
+        AddTriangle(center, edge.v3, edge.v4);
         AddTriangleColor(color);
         AddTriangle(center, edge.v4, edge.v5);
         AddTriangleColor(color);
@@ -455,7 +457,9 @@ public class HexMesh : MonoBehaviour
     {
         AddQuad(e1.v1, e1.v2, e2.v1, e2.v2);
         AddQuadColor(c1, c2);
-        AddQuad(e1.v2, e1.v4, e2.v2, e2.v4);
+        AddQuad(e1.v2, e1.v3, e2.v2, e2.v3);
+        AddQuadColor(c1, c2);
+        AddQuad(e1.v3, e1.v4, e2.v3, e2.v4);
         AddQuadColor(c1, c2);
         AddQuad(e1.v4, e1.v5, e2.v4, e2.v5);
         AddQuadColor(c1, c2);

@@ -63,6 +63,11 @@ public static class HexMetrics {
     public static float elevationPerturbStrength = 1.5f;
 
     /// <summary>
+    /// 河床应该足够低，保持在垂直方向受到微扰最大的单元之下
+    /// </summary>
+    public static float streamBedElevationOffset = -1;
+
+    /// <summary>
     /// 地图块大小，5x5
     /// </summary>
     public const int chunkSizeX = 5;

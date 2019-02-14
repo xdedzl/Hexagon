@@ -128,6 +128,17 @@ public class HexCell : MonoBehaviour {
     public bool HasRiverBeginOrEnd { get { return hasIncomingRiver || hasOutgoingRiver; } }
 
     /// <summary>
+    /// 河床的垂直高度
+    /// </summary>
+    public float StreamBedY
+    {
+        get
+        {
+            return (elevation + HexMetrics.streamBedElevationOffset) * HexMetrics.elevationStep;
+        }
+    }
+
+    /// <summary>
     /// 获取对应方向的邻居
     /// </summary>
     /// <param name="direction">方向</param>
